@@ -1,0 +1,52 @@
+[
+    {
+        "title": "About",
+        "icon": "fas fa-comment",
+        "links": [
+            {"title": "Who are we?", "link": "whoarewe.html", "icon":"fas fa-users"},
+            {"title": "Who is Protagoras?", "link": "whoisprotagoras.html", "icon":"fas fa-user"},
+            {"title": "Our mission", "link": "ourmission.html", "icon": "fas fa-flag"},
+            {"title": "Partners", "link": "partners.html", "icon": "fas fa-handshake"}
+        ]
+    },
+    {
+        "title": "Events",
+        "icon": "fas fa-calendar-alt",
+        "links": [
+            {"title": "Upcoming & Past events", "link": "events.html", "icon": "fab fa-elementor"}
+        ]
+    },
+    {
+        "title": "People",
+        "icon": "fas fa-user",
+        "links": [
+            {"title": "Team", "link": "team.html", "icon": "fas fa-users"},
+            {"title": "Contributors", "link": "contributors.html", "icon": "fas fa-user-plus"}
+        ]
+    },
+    {
+        "title": "Docs",
+        "icon": "fas fa-book",
+        "links": [
+            {"title": "Mission Statement", "link": "missionstatement.html", "icon": "fas fa-flag"},
+            {"title": "Bibliography", "link": "bibliography.html", "icon": "fas fa-book"},
+            {"title": "Primary Sources", "link": "primarysources.html", "icon": "fas fa-list-ul"}
+        ]
+    },
+    {
+        "title": "External Links",
+        "icon": "fas fa-external-link-alt",
+        "links": [
+            {"title": "Github", "link": "github.html", "icon": "fab fa-github"},
+            {"title": "Alexander", "link": "alexander.html", "icon": "fab fa-autoprefixer"}
+        ]
+    },
+    {
+        "title": "Contact",
+        "icon": "fas fa-envelope",
+        "links": [
+            {"title": "Project specific questions", "link": "projectquestions.html", "icon": "fas fa-question"},
+            {"title": "Technical Questions", "link": "technicalquestions.html", "icon": "fas fa-wrench"}
+        ]
+    }
+]
