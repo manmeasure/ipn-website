@@ -20,12 +20,29 @@ const ipn = {
      * Starts loading the main menu data
      */
     init: function(){
+
         //Load the menu structure json
         $.get('data/structure.json', function(data){
             ipn.menu = data;
             //Create the nav bar now that the data is loaded
             ipn.createNavBar();
+
+            //Create the structure in the network model
+            ipn.createSVG();
         });
+    },
+
+    /**
+     * Creates the SVG network model
+     */
+    createSVG: function(){
+        for(var i = 0; i < ipn.menu.length; i++){
+            //Go through every stub
+            var stub = ipn.menu[i];
+            for(var j = 0; j < stub.links.length; j++){
+                //For every link in this stub
+            }
+        }
     },
 
     /**
@@ -47,11 +64,11 @@ const ipn = {
      * Opens a stub with the provided name
      */
     openStub: function(name){
-
+        console.log("Trying to open: " + name);
     }
 }
 
 /**
  * HTML TEMPLATES
  */
-const navItem = "<a class='nav-link' onclick='ipn.openStub(%TITLE%)' href='#'><i class='%ICON%'></i>&nbsp;%TITLE%</a>";
+const navItem = "<a class='nav-link' onclick='ipn.openStub(\"%TITLE%\")' href='#'><i class='%ICON%'></i>&nbsp;%TITLE%</a>";
