@@ -35,7 +35,23 @@ const ipn = {
         //Go through all the menu items
         var html = "";
         for(var i = 0; i < ipn.menu.length; i++){
-
+            var item = navItem.replace(/%TITLE%/g, ipn.menu[i].title);
+            item = item.replace(/%ICON%/g, ipn.menu[i].icon);
+            html += item;
         }
+        //Now append the generated code
+        $('#navbar').append(html);
+    },
+
+    /**
+     * Opens a stub with the provided name
+     */
+    openStub: function(name){
+
     }
 }
+
+/**
+ * HTML TEMPLATES
+ */
+const navItem = "<a class='nav-link' onclick='ipn.openStub(%TITLE%)' href='#'><i class='%ICON%'></i>&nbsp;%TITLE%</a>";
