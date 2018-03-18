@@ -65,17 +65,10 @@ const ipn = {
         if(!this.hasHand) return;
         this.hasHand = false;
         $('canvas').removeClass('handCursor');
-    },
-
-    /**
-     * Opens a stub with the provided name
-     */
-    openStub: function(name){
-        console.log("Trying to open: " + name);
     }
 }
 
 /**
  * HTML TEMPLATES
  */
-const navItem = "<a class='nav-link' onclick='ipn.openStub(\"%TITLE%\")' href='#'><i class='%ICON%'></i>&nbsp;%TITLE%</a>";
+const navItem = "<a class='nav-link' onclick='centerStub(\"%TITLE%\")' href='#'><i class='%ICON%'></i>&nbsp;%TITLE%</a>";

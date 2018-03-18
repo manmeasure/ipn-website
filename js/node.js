@@ -13,6 +13,8 @@ function Node(definition, parent){
     this.lowSize = this.radius;
     this.color = this.links ? stubColor : childColor;
     this.img = loadImage("data/img/" + this.icon.replace(' ', '_') + ".svg");
+
+    //Get the coordinates depending on stuff
     if(!parent){
         this.x = Math.random() * W;
         this.y = Math.random() * H;
@@ -85,7 +87,7 @@ function Node(definition, parent){
         }
 
         if(!this.showStubs && !this.links){
-            var scale = this.radius / this.img.width;
+            var scale = (this.radius / this.img.width) * 0.8;
             var w =  this.img.width * scale;
             var h = this.img.height * scale;
             image(this.img, this.x - w * 0.5, this.y - h * 0.5, w, h);
@@ -110,6 +112,26 @@ function Node(definition, parent){
             return true;
         }else{
             this.highlighted = false;
+        }
+        return false;
+    }
+
+    /**
+     * This function tests a click hit with the specified coordinates
+     * @param {Number} x 
+     * @param {Number} y 
+     * @returns if this was a hit
+     */
+    this.testClick = function(x, y){
+        //Don't change highlighting if we're not showing the stubs
+        if(!this.links && !showSubs) return false;
+        var dx = x - this.x;
+        var dy = y - this.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        //Now calculate if we're touching
+        if(dist <= this.radius){
+            centerStub(this.title);
+            return true;
         }
         return false;
     }

@@ -44,6 +44,13 @@ function setup(){
     //See if we have any cached data
     if(holdDefs) loadNodes(holdDefs);
 }
+/**
+ * Centers on the stub
+ * @param {String} name opens the stub of the name
+ */
+function centerStub(name){
+    console.log("Trying to open: " + name);
+}
 
 /**
  * Draws every frame
@@ -121,6 +128,15 @@ function mouseMoved(){
     }else{
         ipn.removeCursor();
     }
+}
+
+/**
+ * Called when the user clicks on the canvas
+ */
+function mousePressed(){
+    $.each(nodes, function(index, node){
+        node.testClick(mouseX, mouseY);
+    });
 }
 
 /**
