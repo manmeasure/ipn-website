@@ -7,6 +7,9 @@ function Node(definition, parent){
     this.highlighted = false;
     this.title = definition.title;
     this.icon = definition.icon;
+    /**Scaling factor */
+    this.visibility = 1;
+    this.visVal = 1;
     this.links = definition.links;
     this.radius = this.links ? 60: 30;
     this.highSize = this.radius * 1.1;
@@ -51,6 +54,8 @@ function Node(definition, parent){
         }else{
             this.radius += ((this.lowSize) - this.radius) * 0.1;
         }
+
+        this.visVal -= (this.visVal - this.visibility) * 0.1;
     }
 
     /**
@@ -60,7 +65,7 @@ function Node(definition, parent){
         //Draw shadow
         fill(shadowColor);
         noStroke();
-        ellipse(this.x + 2, this.y + 2, this.radius, this.radius);
+        ellipse(this.x + 1, this.y + 1, this.radius * 2 * this.visVal, this.radius * 2 * this.visVal);
         //Draw actual body
         fill(this.color);
         //Only highlight shape if it is a mouse over
@@ -70,13 +75,13 @@ function Node(definition, parent){
         }else{
             noStroke();
         }
-        ellipse(this.x, this.y, this.radius * 2, this.radius * 2);
+        ellipse(this.x, this.y, this.radius * 2 * this.visVal, this.radius * 2 * this.visVal);
 
         if(this.links && showStubs || !this.links && showSubs){
             //Now draw text
             fill(shadowColor);
             noStroke();
-            textSize(16);
+            textSize(16 * this.visVal);
             var tw = textWidth(this.title);
             var th = textAscent(this.title)  * -.5;
             var offX = (this.radius * 2 - tw) / 2;
@@ -90,7 +95,7 @@ function Node(definition, parent){
             var scale = (this.radius / this.img.width) * 0.8;
             var w =  this.img.width * scale;
             var h = this.img.height * scale;
-            image(this.img, this.x - w * 0.5, this.y - h * 0.5, w, h);
+            image(this.img, this.x - w * 0.5, this.y - h * 0.5, w * this.visVal, h * this.visVal);
         }
     }
 
@@ -152,9 +157,11 @@ function Link(nodeA, nodeB){
      * Draws the line between the two centers
      */
     this.draw = function(){
-        stroke(linkColor);
-        strokeWeight(1);
-        line(this.a.x, this.a.y, this.b.x, this.b.y);
+        if(this.a.visibility > 0 && this.b.visibility > 0){
+            stroke(linkColor);
+            strokeWeight(1);
+            line(this.a.x, this.a.y, this.b.x, this.b.y);
+        }
     }
 
     /**

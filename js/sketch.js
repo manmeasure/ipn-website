@@ -50,6 +50,23 @@ function setup(){
  */
 function centerStub(name){
     console.log("Trying to open: " + name);
+    //This will hold the node we're trying to center on
+    var centerNode;
+    //Find the node that we're trying to open
+    $.each(nodes, function(index, node){
+        node.visibility = 0;
+        if(node.title === name){
+            centerNode = node;
+        }
+    });
+    centerNode.visibility = 1;
+    $.each(nodes, function(index, node){
+        $.each(centerNode.links, function(index, link){
+            if(node.title == link.title){
+                node.visibility = 1;
+            }
+        });
+    });
 }
 
 /**
@@ -65,7 +82,7 @@ function draw(){
             //Same node, do nothing
             if(indexA == indexB) return;
 
-            //Else, repell
+            //Else, repell from eachother
             keepApart(nodeA, nodeB);
         })
     });
