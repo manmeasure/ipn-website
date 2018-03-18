@@ -40,8 +40,8 @@ function Node(definition, parent){
      * Keep within bounds
      */
     this.update = function(){
-        this.x = constrain(this.x, this.radius, W - this.radius);
-        this.y = constrain(this.y, this.radius, H - this.radius);
+        this.x = constrain(this.x, this.radius + 3, W - this.radius - 3);
+        this.y = constrain(this.y, this.radius + 3, H - this.radius - 3);
 
         if(this.highlighted){
             this.radius += ((this.highSize) - this.radius) * 0.1;
