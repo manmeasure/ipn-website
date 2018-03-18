@@ -45,11 +45,20 @@ function Node(definition, parent){
         //Draw shadow
         fill(shadowColor);
         noStroke();
-        ellipse(this.x + 2, this.y + 2, this.radius, this.radius);
+        ellipse(this.x + 1, this.y + 2, this.radius, this.radius);
         //Draw actual body
         fill(this.color);
         stroke(this.color);
-        ellipse(this.x, this.y, this.radius, this.radius);
+        ellipse(this.x, this.y, this.radius * 2, this.radius * 2);
+
+        //Now draw text
+        fill(255);
+        this.links ? textSize(14) : textSize(10);
+        var tw = textWidth(this.title);
+        var th = textAscent(this.title);
+        var offX = (this.radius * 2 - tw) / 2;
+        var offY = (this.radius * 2 - th) / 2;
+        text(this.title, this.x - this.radius + offX, this.y - this.radius + offY);
     }
 }
 /**
@@ -60,7 +69,7 @@ function Node(definition, parent){
 function Link(nodeA, nodeB){
     this.a = nodeA;
     this.b = nodeB;
-    this.l = (nodeA.links && nodeB.links) ? 200 : 80;
+    this.l = (nodeA.links && nodeB.links) ? 200 : 100;
     this.deltaL = this.l * 0.1;
     this.angleDelta = 0;
 
@@ -76,7 +85,7 @@ function Link(nodeA, nodeB){
      * Runs the update function, keeping 2 nodes at a distance
      */
     this.update = function(){
-        this.angleDelta += Math.random() * 0.01;
+        this.angleDelta += Math.random() * 0.02;
         var dx = this.a.x - this.b.x;
         var dy = this.a.y - this.b.y;
         var dist = Math.sqrt(dx * dx + dy * dy);
@@ -98,8 +107,8 @@ function keepApart(a, b){
     var dx = a.x - b.x;
     var dy = a.y - b.y;
     var dist = Math.sqrt(dx * dx + dy * dy);
-    if(dist > 80) return;
-    var diff = (80 - dist);//multiplied by easefactor
+    if(dist > 100) return;
+    var diff = (100 - dist);//multiplied by easefactor
     var diffX = (dx * diff) / dist;
     var diffY = (dy * diff) / dist;
     if(!a.links) a.x += diffX * 0.5;

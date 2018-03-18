@@ -30,7 +30,7 @@ function setup(){
     stubColor = color(85, 116, 127);
     childColor = color(129, 177, 193);
     linkColor = color(124, 169, 186);
-    shadowColor = color(150, 150, 150);
+    shadowColor = color(0, 0, 0, 100);
     //If setup is done, set the flag accordingly
     sketchReady = true;
     //See if we have any cached data
