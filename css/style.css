@@ -28,6 +28,9 @@ BOOTSTRAP OVERRIDES
 /**
 CUSTOM CLASSES
 **/
+.handCursor{
+    cursor: pointer;
+}
 
 /**
 CUSTOM ID's

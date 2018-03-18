@@ -88,19 +88,22 @@ function Node(definition, parent){
      * This function tests a hit with the specified coordinates
      * @param {Number} x 
      * @param {Number} y 
+     * @returns if this was a hit
      */
     this.testHit = function(x, y){
         //Don't change highlighting if we're not showing the stubs
-        if(!this.links && !showSubs) return;
+        if(!this.links && !showSubs) return false;
         var dx = x - this.x;
         var dy = y - this.y;
         var dist = Math.sqrt(dx * dx + dy * dy);
         //Now calculate if we're touching
         if(dist <= this.radius){
             this.highlighted = true;
+            return true;
         }else{
             this.highlighted = false;
         }
+        return false;
     }
 }
 /**

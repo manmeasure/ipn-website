@@ -110,9 +110,17 @@ function loadNodes(defNodes){
  * Called when the mouse moves in the main canvas
  */
 function mouseMoved(){
+    var hasHit = false;
     $.each(nodes, function(index, node){
-        node.testHit(mouseX, mouseY);
+        if(!hasHit && node.testHit(mouseX, mouseY)){
+            hasHit = true;
+        }
     });
+    if(hasHit){
+        ipn.addCursor();
+    }else{
+        ipn.removeCursor();
+    }
 }
 
 /**

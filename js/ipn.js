@@ -16,6 +16,7 @@ const ipn = {
     author: "Mees Gelein",
     version: "0.0.1",
     menu: "",
+    hasHand: false,
 
     /**
      * Starts loading the main menu data
@@ -46,6 +47,24 @@ const ipn = {
         }
         //Now append the generated code
         $('#navbar').append(html);
+    },
+
+    /**
+     * Adds a cursor to the HTML5 canvas
+     */
+    addCursor: function(){
+        if(this.hasHand) return;
+        this.hasHand = true;
+        $('canvas').addClass('handCursor');
+    },
+
+    /**
+     * REmoves a cursor from the HTML5 canvas
+     */
+    removeCursor: function(){
+        if(!this.hasHand) return;
+        this.hasHand = false;
+        $('canvas').removeClass('handCursor');
     },
 
     /**
