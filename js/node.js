@@ -12,6 +12,7 @@ function Node(definition, parent){
     this.highSize = this.radius * 1.1;
     this.lowSize = this.radius;
     this.color = this.links ? stubColor : childColor;
+    this.img = loadImage("data/img/" + this.icon.replace(' ', '_') + ".svg");
     if(!parent){
         this.x = Math.random() * W;
         this.y = Math.random() * H;
@@ -81,6 +82,13 @@ function Node(definition, parent){
             text(this.title, this.x - this.radius + offX, this.y - this.radius + offY);
             fill(255);
             text(this.title, this.x - this.radius + offX + 1, this.y - this.radius + offY + 1);
+        }
+
+        if(!this.showStubs && !this.links){
+            var scale = this.radius / this.img.width;
+            var w =  this.img.width * scale;
+            var h = this.img.height * scale;
+            image(this.img, this.x - w * 0.5, this.y - h * 0.5, w, h);
         }
     }
 

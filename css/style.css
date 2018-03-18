@@ -29,7 +29,11 @@ BOOTSTRAP OVERRIDES
 CUSTOM CLASSES
 **/
 .handCursor{
-    cursor: pointer;
+   cursor: pointer;
+}
+
+.icon{
+    font-size: 4em;
 }
 
 /**
