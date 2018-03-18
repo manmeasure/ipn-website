@@ -5,6 +5,7 @@ body{
     padding: 0;
     margin: 0;
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 nav > a{
@@ -31,8 +32,6 @@ CUSTOM CLASSES
 /**
 CUSTOM ID's
 **/
-#svg{
-    width: 100%;
-    padding: 0;
-    margin: 0;
+#defaultCanvas0{
+    width: 100vw;
 }

@@ -27,22 +27,9 @@ const ipn = {
             //Create the nav bar now that the data is loaded
             ipn.createNavBar();
 
-            //Create the structure in the network model
-            ipn.createSVG();
+            //Load the structure into the graphic
+            loadNodes(ipn.menu);
         });
-    },
-
-    /**
-     * Creates the SVG network model
-     */
-    createSVG: function(){
-        for(var i = 0; i < ipn.menu.length; i++){
-            //Go through every stub
-            var stub = ipn.menu[i];
-            for(var j = 0; j < stub.links.length; j++){
-                //For every link in this stub
-            }
-        }
     },
 
     /**
