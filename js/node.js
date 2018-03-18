@@ -1,12 +1,16 @@
+"use strict";
 /**
  * Contains the Node class
  * @param {Object} definition loaded from the JSON file
  */
 function Node(definition, parent){
+    this.highlighted = false;
     this.title = definition.title;
     this.icon = definition.icon;
     this.links = definition.links;
     this.radius = this.links ? 60: 30;
+    this.highSize = this.radius * 1.1;
+    this.lowSize = this.radius;
     this.color = this.links ? stubColor : childColor;
     if(!parent){
         this.x = Math.random() * W;
@@ -18,7 +22,9 @@ function Node(definition, parent){
     //List of children attached nodes
     this.children = [];
 
-
+    /**
+     * Starts spawning links
+     */
     this.spawnLinks = function(){
         var self = this;
         var pos = {x: this.x, y: this.y};
@@ -36,6 +42,12 @@ function Node(definition, parent){
     this.update = function(){
         this.x = constrain(this.x, this.radius, W - this.radius);
         this.y = constrain(this.y, this.radius, H - this.radius);
+
+        if(this.highlighted){
+            this.radius += ((this.highSize) - this.radius) * 0.1;
+        }else{
+            this.radius += ((this.lowSize) - this.radius) * 0.1;
+        }
     }
 
     /**
@@ -45,20 +57,50 @@ function Node(definition, parent){
         //Draw shadow
         fill(shadowColor);
         noStroke();
-        ellipse(this.x + 1, this.y + 2, this.radius, this.radius);
+        ellipse(this.x + 2, this.y + 2, this.radius, this.radius);
         //Draw actual body
         fill(this.color);
-        stroke(this.color);
+        //Only highlight shape if it is a mouse over
+        if(this.highlighted){
+            stroke(lineColor);
+            strokeWeight(2);
+        }else{
+            noStroke();
+        }
         ellipse(this.x, this.y, this.radius * 2, this.radius * 2);
 
-        //Now draw text
-        fill(255);
-        this.links ? textSize(14) : textSize(10);
-        var tw = textWidth(this.title);
-        var th = textAscent(this.title);
-        var offX = (this.radius * 2 - tw) / 2;
-        var offY = (this.radius * 2 - th) / 2;
-        text(this.title, this.x - this.radius + offX, this.y - this.radius + offY);
+        if(this.links && showStubs || !this.links && showSubs){
+            //Now draw text
+            fill(shadowColor);
+            noStroke();
+            textSize(16);
+            var tw = textWidth(this.title);
+            var th = textAscent(this.title)  * -.5;
+            var offX = (this.radius * 2 - tw) / 2;
+            var offY = (this.radius * 2 - th) / 2;
+            text(this.title, this.x - this.radius + offX, this.y - this.radius + offY);
+            fill(255);
+            text(this.title, this.x - this.radius + offX + 1, this.y - this.radius + offY + 1);
+        }
+    }
+
+    /**
+     * This function tests a hit with the specified coordinates
+     * @param {Number} x 
+     * @param {Number} y 
+     */
+    this.testHit = function(x, y){
+        //Don't change highlighting if we're not showing the stubs
+        if(!this.links && !showSubs) return;
+        var dx = x - this.x;
+        var dy = y - this.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        //Now calculate if we're touching
+        if(dist <= this.radius){
+            this.highlighted = true;
+        }else{
+            this.highlighted = false;
+        }
     }
 }
 /**
@@ -78,6 +120,7 @@ function Link(nodeA, nodeB){
      */
     this.draw = function(){
         stroke(linkColor);
+        strokeWeight(1);
         line(this.a.x, this.a.y, this.b.x, this.b.y);
     }
 

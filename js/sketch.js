@@ -1,3 +1,4 @@
+"use strict";
 /**The heigt of the canvas */
 const W = 960;
 /**The width of the canvas */
@@ -14,10 +15,16 @@ var childColor;
 var linkColor;
 /**Color of shadow */
 var shadowColor;
+/**Color of the line */
+var lineColor;
 /**If setup has run already */
 var sketchReady = false;
 /**Holds the definitions if we need to cache them */
 var holdDefs;
+/**Show labels on stubs */
+var showStubs = true;
+/**Show lables on subs */
+var showSubs = false;
 /**
  * Setup function
  */
@@ -31,6 +38,7 @@ function setup(){
     childColor = color(129, 177, 193);
     linkColor = color(124, 169, 186);
     shadowColor = color(0, 0, 0, 100);
+    lineColor = color(150, 170, 190);
     //If setup is done, set the flag accordingly
     sketchReady = true;
     //See if we have any cached data
@@ -96,4 +104,21 @@ function loadNodes(defNodes){
         if(prevNode != undefined) links.push(new Link(prevNode, n));
         prevNode = n;
     });
+}
+
+/**
+ * Called when the mouse moves in the main canvas
+ */
+function mouseMoved(){
+    $.each(nodes, function(index, node){
+        node.testHit(mouseX, mouseY);
+    });
+}
+
+/**
+ * Zooms out to the main overview
+ */
+function zoomOut(){
+    showStubs = true;
+    showSubs = false;
 }
