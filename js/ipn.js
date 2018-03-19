@@ -33,7 +33,7 @@ const ipn = {
             ipn.createNavBar();
 
             //Load the structure into the graphic
-            loadNodes(ipn.menu);
+            loadNodes(ipn.menu, true);
         });
     },
 
@@ -74,8 +74,12 @@ const ipn = {
      * Shows the content that is provided as html string
      * @param {String} html the html string to display in the popover div
      * @param {String} breadcrumb the html to set as breadcrumb
+     * @param {String} name
      */
-    showContent: function(html, breadcrumb){
+    showContent: function(html, breadcrumb, name){
+        //Change the URL of the location
+        history.pushState(null, null, this.getPageLocation(name.replace('.html', '')));
+        //And set showing content to true
         this.showingContent = true;
         //First start animating it into view
         $('#content').removeClass('animated slideOutDown').fadeIn(1000, function(){
@@ -88,6 +92,19 @@ const ipn = {
 
         //And reload the sketch
         reload(true);
+    },
+
+    /**
+     * Returns the full url for this location and page name
+     */
+    getPageLocation: function(name){
+        var href = window.location.href;
+        //If there is a GET query, remove it
+        if(href.indexOf('?') != -1){
+            href = window.location.href.split("?")[0];
+        }
+        //Now append the page location
+        return href + "?page=" + name;
     },
 
     /**

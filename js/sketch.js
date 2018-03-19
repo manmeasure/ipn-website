@@ -44,7 +44,7 @@ function setup(){
     //If setup is done, set the flag accordingly
     sketchReady = true;
     //See if we have any cached data
-    if(holdDefs) loadNodes(holdDefs);
+    if(holdDefs) loadNodes(holdDefs, true);
 }
 /**
  * Reloads the sketch
@@ -154,10 +154,11 @@ function draw(){
 /**
  * Starts to load the array of nodes that is the menu
  * @param {Array} defNodes 
+ * @param {Boolean} firstLoad
  */
-function loadNodes(defNodes){
+function loadNodes(defNodes, firstLoad){
     nodes = [];
-    links = []; 
+    links = [];
     //If the skecth is not ready yet, hold the data untill it is
     if(!sketchReady) {
         holdDefs = defNodes;
@@ -175,6 +176,20 @@ function loadNodes(defNodes){
         if(prevNode != undefined) links.push(new Link(prevNode, n));
         prevNode = n;
     });
+
+    if(firstLoad){
+        setTimeout(function(){
+            //Now that everything is loaded, check if we have a page defined in the URL
+            var page = ipn.getURLVar('page') + ".html";
+            if(page){
+                $.each(nodes, function(index, node){
+                    if(node.page === page){
+                        node.loadSub();
+                    }
+                });
+            }
+        }, 500);
+    }
 }
 
 /**
