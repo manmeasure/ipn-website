@@ -70,7 +70,7 @@ function getBreadCrumb(from){
         }
     });
     return "You are here: <a href='#' onclick='centerStub(\"" + to.title + "\");'>" + to.title + "</a>&nbsp;&gt;" 
-    + "&nbsp;<span>" + from.title + "</span>";
+    + "&nbsp;<span><i class='" + from.icon + "'></i>&nbsp;" + from.title + "</span>";
 }
 
 /**
