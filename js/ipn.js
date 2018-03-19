@@ -98,6 +98,23 @@ const ipn = {
         $('#content').removeClass('animated slideInUp').fadeOut(1000, function(){
             $(this).removeClass('animated slideOutDown');
         }).addClass('animated slideOutDown');
+    },
+
+    /**
+     * Tries to read the variable with the name from the url vars
+     */
+    getURLVar: function(name){
+        //If no URL vars are defined, return undefined
+        if(window.location.href.indexOf('?') == -1) return undefined;
+        //Else split on that char
+        var url = window.location.href.split("?")[1];
+        var vars = url.split("&");
+        var found = undefined;
+        $.each(vars, function(index, variable){
+            var parts = variable.split('=');
+            if(parts[0] == name) found = parts[1];
+        });
+        return found;
     }
 }
 
