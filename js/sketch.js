@@ -58,6 +58,8 @@ function reload(){
  * @param {String} name opens the stub of the name
  */
 function centerStub(name){
+    //First hide the content screen
+    ipn.hideContent();
     //First check if we're already zoomed in
     if(showSubs){
         zoomOut();
@@ -186,7 +188,7 @@ function mousePressed(){
  */
 function zoomOut(){
     //Don;t show subs
-    showSubs = false;
+    showSubs = false;   
     //Go through all nodes to make them invisible
     $.each(nodes, function(index, node){
         node.visibility = -1;

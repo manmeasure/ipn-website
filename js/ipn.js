@@ -65,6 +65,25 @@ const ipn = {
         if(!this.hasHand) return;
         this.hasHand = false;
         $('canvas').removeClass('handCursor');
+    },
+
+    /**
+     * Shows the content that is provided as html string
+     * @param {String} html the html string to display in the popover div
+     */
+    showContent: function(html){
+        $('#content').removeClass('animated slideOutDown').fadeIn(1000, function(){
+            $(this).removeClass('animated slideInUp');
+        }).addClass('animated slideInUp');
+    },
+
+    /**
+     * Hides the content.
+     */
+    hideContent: function(html){
+        $('#content').removeClass('animated slideInUp').fadeOut(1000, function(){
+            $(this).removeClass('animated slideOutDown');
+        }).addClass('animated slideOutDown');
     }
 }
 
