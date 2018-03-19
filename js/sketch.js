@@ -49,6 +49,8 @@ function setup(){
  */
 function reload(){
     loadNodes(holdDefs);
+    showSubs = false;
+    showStubs = true;
 }
 
 /**
@@ -59,7 +61,7 @@ function centerStub(name){
     //First check if we're already zoomed in
     if(showSubs){
         zoomOut();
-        setTimeout(function(){ centerStub(name);}, 700);
+        setTimeout(function(){ centerStub(name);}, 1500);
         return;
     }
 
@@ -96,7 +98,6 @@ function centerStub(name){
 function draw(){
     //First cls
     background(255);
-    console.log(showSubs);
     
     //Then repel all nodes from eachother
     $.each(nodes, function(indexA, nodeA){
@@ -184,8 +185,12 @@ function mousePressed(){
  * Zooms out to the main overview
  */
 function zoomOut(){
-    showStubs = true;
+    //Don;t show subs
     showSubs = false;
+    //Go through all nodes to make them invisible
+    $.each(nodes, function(index, node){
+        node.visibility = -1;
+    });
     //This is a forced solution and not as elegant as I would like, but ah well
-    reload();
+    setTimeout(function(){reload()}, 400);
 }

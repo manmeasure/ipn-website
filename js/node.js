@@ -187,14 +187,7 @@ function Node(definition, parent){
         if(dist <= this.radius * this.visVal){
             if(this.links){//What to do in case of clicking on a stub
                 if(!showSubs) centerStub(this.title);
-                else {
-                    //Go back to overview, first hide all visibilities
-                    $.each(nodes, function(index, node){
-                        node.visibility = -1;
-                    });
-                    //Then after timeout, reload by 'zooming out'
-                    setTimeout(function(){zoomOut();}, 400);
-                }
+                else zoomOut();
             }else{//What to do in case of clicking on a sub
 
             }
