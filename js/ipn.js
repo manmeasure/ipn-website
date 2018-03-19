@@ -72,9 +72,13 @@ const ipn = {
      * @param {String} html the html string to display in the popover div
      */
     showContent: function(html){
+        //First start animating it into view
         $('#content').removeClass('animated slideOutDown').fadeIn(1000, function(){
             $(this).removeClass('animated slideInUp');
         }).addClass('animated slideInUp');
+
+        //Then set content
+        $('#content .container').html(html);
     },
 
     /**

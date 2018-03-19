@@ -6,7 +6,7 @@
             {"title": "Who are we?", "link": "whoarewe.html", "icon":"fas fa-users"},
             {"title": "Who is Protagoras?", "link": "whoisprotagoras.html", "icon":"fas fa-user"},
             {"title": "Our mission", "link": "ourmission.html", "icon": "fas fa-flag"},
-            {"title": "Partners", "link": "partners.html", "icon": "fas fa-handshake"}
+            {"title": "Partners", "link": "loremipsum.html", "icon": "fas fa-handshake"}
         ]
     },
     {

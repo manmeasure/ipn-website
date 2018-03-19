@@ -12,6 +12,8 @@ function Node(definition, parent){
     this.icon = definition.icon;
     /**Scaling factor */
     this.visibility = 1;
+    /**The page this links to, if any at all*/
+    this.page = definition.link;
     /**The value of the visibilty (scaling factor) */
     this.visVal = 0;
     /** Depending on the links */
@@ -189,7 +191,9 @@ function Node(definition, parent){
                 if(!showSubs) centerStub(this.title);
                 else zoomOut();
             }else{//What to do in case of clicking on a sub
-
+                $.get('data/pages/' + this.page, function(data){
+                    ipn.showContent(data);
+                });
             }
             return true;
         }
