@@ -126,7 +126,7 @@ function Node(definition, parent){
                 fill(shadowColor);
                 noStroke();
                 if(!this.links && showSubs){
-                    textSize(16);
+                    textSize(14);
                 }else{
                     textSize(16 * this.visVal);
                 }
@@ -134,17 +134,21 @@ function Node(definition, parent){
                 var th = textAscent(this.title)  * -.5;
                 var offX = (this.radius * 2 - tw) / 2;
                 var offY = (this.radius * 2 - th) / 2;
+                //If we are a sub and we're focused on a stub
+                if(!this.links && showSubs) offY -= 20;
                 text(this.title, this.x - this.radius + offX, this.y - this.radius + offY);
                 fill(255);
                 text(this.title, this.x - this.radius + offX + 1, this.y - this.radius + offY + 1);
             }
         }
-        if(!this.showStubs && !this.links && !showSubs){
+        if(!this.showStubs && !this.links ){
             if(this.visVal >= 0.9){//Keep the barrier at 0.9 to prevent easing problems not reaching exact 1 values
                 var scale = (this.radius / this.img.width) * 0.8;
-                var w =  this.img.width * scale;
-                var h = this.img.height * scale;
-                image(this.img, this.x - w * 0.5, this.y - h * 0.5, w * this.visVal, h * this.visVal);
+                if(showSubs) scale *= 0.6;
+                var w =  this.img.width * scale * this.visVal;
+                var h = this.img.height * scale * this.visVal;
+                var offY = showSubs ? 20 : 0;
+                image(this.img, this.x - w * 0.5, this.y - h * 0.5 + offY, w, h);
             }
         }
     }

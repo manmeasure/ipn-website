@@ -13,7 +13,7 @@
         "title": "Events",
         "icon": "fas fa-calendar-alt",
         "links": [
-            {"title": "Upcoming & Past events", "link": "events.html", "icon": "fab fa-elementor"}
+            {"title": "Upcoming & Past", "link": "events.html", "icon": "fab fa-elementor"}
         ]
     },
     {
