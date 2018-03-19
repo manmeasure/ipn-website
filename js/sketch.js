@@ -59,6 +59,8 @@ function centerStub(name){
             centerNode = node;
         }
     });
+    //Set showsubs to true, and set their visibility to 1
+    showSubs = true;
     centerNode.visibility = 1;
     $.each(nodes, function(index, node){
         $.each(centerNode.links, function(index, link){
@@ -83,7 +85,7 @@ function draw(){
             if(indexA == indexB) return;
 
             //Else, repell from eachother
-            keepApart(nodeA, nodeB);
+            if(!showSubs) keepApart(nodeA, nodeB);
         })
     });
 
@@ -94,7 +96,7 @@ function draw(){
 
     //Update all links
     $.each(links, function(index, link){
-        link.update();
+        if(!showSubs) link.update();
     }) 
     //Draw all links
     $.each(links, function(index, link){

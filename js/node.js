@@ -4,29 +4,46 @@
  * @param {Object} definition loaded from the JSON file
  */
 function Node(definition, parent){
+    /**If this node is currently being highlighted */
     this.highlighted = false;
+    /**The title of this node */
     this.title = definition.title;
+    /**The icon name for this node */
     this.icon = definition.icon;
     /**Scaling factor */
     this.visibility = 1;
+    /**The value of the visibilty (scaling factor) */
     this.visVal = 1;
+    /** Depending on the links */
     this.links = definition.links;
+    /**Set the normal size of the node depending on type */
     this.radius = this.links ? 60: 30;
+    /**Set the maximum size of the node */
     this.highSize = this.radius * 1.1;
+    /**Set the minimum size of the node */
     this.lowSize = this.radius;
+    /**Set the color depending on the node kind */
     this.color = this.links ? stubColor : childColor;
+    /**Load the SVG image from the data directory */
     this.img = loadImage("data/img/" + this.icon.replace(' ', '_') + ".svg");
+    /**If we're currently easing to the target coordinates */
+    this.easing = false;
 
-    //Get the coordinates depending on stuff
+    //Get the coordinates depending on if we're providing parent coords
     if(!parent){
         this.x = Math.random() * W;
         this.y = Math.random() * H;
     }else{
+        //Else set random coords
         this.x = parent.x + (Math.random() * 100 - 50);
         this.y = parent.y + (Math.random() * 100 - 50);
     }
     //List of children attached nodes
     this.children = [];
+    /**This target-x */
+    this.tx = this.x;
+    /**THis target-y */
+    this.ty = this.y;
 
     /**
      * Starts spawning links
@@ -93,7 +110,7 @@ function Node(definition, parent){
             }
         }
 
-        if(!this.showStubs && !this.links){
+        if(!this.showStubs && !this.links && !showSubs){
             if(this.visVal >= 1){
                 var scale = (this.radius / this.img.width) * 0.8;
                 var w =  this.img.width * scale;
