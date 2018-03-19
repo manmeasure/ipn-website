@@ -112,6 +112,9 @@ function centerStub(name){
             }
         });
     });
+
+    //Now set the url
+    history.pushState(null, null, ipn.getStubLocation(name));
 }
 
 /**
@@ -180,13 +183,19 @@ function loadNodes(defNodes, firstLoad){
     if(firstLoad){
         setTimeout(function(){
             //Now that everything is loaded, check if we have a page defined in the URL
-            var page = ipn.getURLVar('page') + ".html";
+            var page = ipn.getURLVar('page');
+            var stub = ipn.getURLVar('stub');
             if(page){
                 $.each(nodes, function(index, node){
-                    if(node.page === page){
+                    if(node.page === page + ".html"){
                         node.loadSub();
                     }
                 });
+                //Else if a stub has been set
+            }else if(stub){
+                stub = stub.replace(/#/g, '');
+                stub = stub.replace(/_/g, ' ');
+                centerStub(stub);
             }
         }, 500);
     }

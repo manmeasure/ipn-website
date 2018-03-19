@@ -90,7 +90,7 @@ const ipn = {
         $('#content .container').html(html);
         $('#breadcrumb').html(breadcrumb);
 
-        //And reload the sketch
+        //And reload the sketch, if we are showing subs
         reload(true);
     },
 
@@ -105,6 +105,19 @@ const ipn = {
         }
         //Now append the page location
         return href + "?page=" + name;
+    },
+
+    /**
+     * Returns the full url for this stub location
+     */
+    getStubLocation: function(title){
+        var href = window.location.href;
+        //If there is a GET query, remove it
+        if(href.indexOf('?') != -1){
+            href = window.location.href.split("?")[0];
+        }
+        //Now append the page location
+        return href + "?stub=" + title.replace(/ /g, '_');
     },
 
     /**
@@ -131,7 +144,8 @@ const ipn = {
             var parts = variable.split('=');
             if(parts[0] == name) found = parts[1];
         });
-        return found;
+        //If it is found, return a replaced version
+        if(found) return found.replace('#', '');
     }
 }
 

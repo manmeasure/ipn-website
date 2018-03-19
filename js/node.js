@@ -191,7 +191,7 @@ function Node(definition, parent){
                 if(!showSubs) centerStub(this.title);
                 else zoomOut();
             }else{//What to do in case of clicking on a sub
-                loadSub();
+                this.loadSub();
             }
             return true;
         }
