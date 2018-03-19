@@ -70,5 +70,7 @@ CUSTOM ID's
 }
 
 #pageContent{
-    padding: 2em;
+    padding-top: 1em;
+    padding-left: 8em;
+    padding-right: 8em;
 }
