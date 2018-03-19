@@ -13,7 +13,7 @@ function Node(definition, parent){
     /**Scaling factor */
     this.visibility = 1;
     /**The value of the visibilty (scaling factor) */
-    this.visVal = 1;
+    this.visVal = 0;
     /** Depending on the links */
     this.links = definition.links;
     /**Set the normal size of the node depending on type */
@@ -95,18 +95,6 @@ function Node(definition, parent){
             this.tx = targetx;
             this.ty = targety;
         }
-    },
-
-    /**
-     * Removes the easing from this node
-     */
-    this.removeEasing = function(){
-        //First ease back to the starting point
-        this.setEasing(true, this.ox, this.y);
-        //Then after easing is done, turn off easing again
-        setTimeout(function(){
-            this.easing = false;
-        }, 700)
     },
 
     /**
@@ -197,8 +185,19 @@ function Node(definition, parent){
         var dist = Math.sqrt(dx * dx + dy * dy);
         //Now calculate if we're touching
         if(dist <= this.radius * this.visVal){
-            if(!showSubs) centerStub(this.title);
-            else zoomOut();
+            if(this.links){//What to do in case of clicking on a stub
+                if(!showSubs) centerStub(this.title);
+                else {
+                    //Go back to overview, first hide all visibilities
+                    $.each(nodes, function(index, node){
+                        node.visibility = -1;
+                    });
+                    //Then after timeout, reload by 'zooming out'
+                    setTimeout(function(){zoomOut();}, 400);
+                }
+            }else{//What to do in case of clicking on a sub
+
+            }
             return true;
         }
         return false;
