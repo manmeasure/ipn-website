@@ -55,7 +55,7 @@ function Node(definition, parent){
             this.radius += ((this.lowSize) - this.radius) * 0.1;
         }
 
-        this.visVal -= (this.visVal - this.visibility) * 0.1;
+        this.visVal -= (this.visVal - this.visibility) * 0.2;
     }
 
     /**
@@ -78,24 +78,28 @@ function Node(definition, parent){
         ellipse(this.x, this.y, this.radius * 2 * this.visVal, this.radius * 2 * this.visVal);
 
         if(this.links && showStubs || !this.links && showSubs){
-            //Now draw text
-            fill(shadowColor);
-            noStroke();
-            textSize(16 * this.visVal);
-            var tw = textWidth(this.title);
-            var th = textAscent(this.title)  * -.5;
-            var offX = (this.radius * 2 - tw) / 2;
-            var offY = (this.radius * 2 - th) / 2;
-            text(this.title, this.x - this.radius + offX, this.y - this.radius + offY);
-            fill(255);
-            text(this.title, this.x - this.radius + offX + 1, this.y - this.radius + offY + 1);
+            if(this.visVal >= 1){
+                //Now draw text
+                fill(shadowColor);
+                noStroke();
+                textSize(16 * this.visVal);
+                var tw = textWidth(this.title);
+                var th = textAscent(this.title)  * -.5;
+                var offX = (this.radius * 2 - tw) / 2;
+                var offY = (this.radius * 2 - th) / 2;
+                text(this.title, this.x - this.radius + offX, this.y - this.radius + offY);
+                fill(255);
+                text(this.title, this.x - this.radius + offX + 1, this.y - this.radius + offY + 1);
+            }
         }
 
         if(!this.showStubs && !this.links){
-            var scale = (this.radius / this.img.width) * 0.8;
-            var w =  this.img.width * scale;
-            var h = this.img.height * scale;
-            image(this.img, this.x - w * 0.5, this.y - h * 0.5, w * this.visVal, h * this.visVal);
+            if(this.visVal >= 1){
+                var scale = (this.radius / this.img.width) * 0.8;
+                var w =  this.img.width * scale;
+                var h = this.img.height * scale;
+                image(this.img, this.x - w * 0.5, this.y - h * 0.5, w * this.visVal, h * this.visVal);
+            }
         }
     }
 
