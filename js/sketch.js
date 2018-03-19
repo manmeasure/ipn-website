@@ -25,6 +25,8 @@ var holdDefs;
 var showStubs = true;
 /**Show lables on subs */
 var showSubs = false;
+/**Buffer around the edge of the scree */
+var sketchBuffer = 10;
 /**
  * Setup function
  */
