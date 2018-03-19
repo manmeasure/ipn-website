@@ -82,8 +82,9 @@ function centerStub(name){
     ipn.hideContent();
     //First check if we're already zoomed in
     if(showSubs){
-        zoomOut();
-        setTimeout(function(){ centerStub(name);}, 1500);
+        zoomOut(function(){
+            setTimeout(function(){ centerStub(name);}, 500);
+        });
         return;
     }
 
@@ -231,7 +232,7 @@ function mousePressed(){
 /**
  * Zooms out to the main overview
  */
-function zoomOut(){
+function zoomOut(callback){
     //Don;t show subs
     showSubs = false;   
     //Go through all nodes to make them invisible
@@ -239,5 +240,8 @@ function zoomOut(){
         node.visibility = -1;
     });
     //This is a forced solution and not as elegant as I would like, but ah well
-    setTimeout(function(){reload()}, 400);
+    setTimeout(function(){
+        reload();
+        if(callback) callback();
+    }, 400);
 }
