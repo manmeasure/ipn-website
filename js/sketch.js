@@ -55,6 +55,23 @@ function reload(noHide){
 }
 
 /**
+ * Asks for a breadcrumb trail from the provided note
+ * @param {Node} from 
+ */
+function getBreadCrumb(from){
+    var to;
+    $.each(links, function(index, link){
+        if(link.a === from){
+            to = link.b;
+        }else if(link.b === from){
+            to = link.a;
+        }
+    });
+    return "You are here: <a href='#' onclick='centerStub(\"" + to.title + "\");'>" + to.title + "</a>&nbsp;&gt;" 
+    + "&nbsp;<span>" + from.title + "</span>";
+}
+
+/**
  * Centers on the stub
  * @param {String} name opens the stub of the name
  */
@@ -180,6 +197,7 @@ function mouseMoved(){
  */
 function mousePressed(){
     $.each(nodes, function(index, node){
+        if(ipn.showingContent) return;
         node.testClick(mouseX, mouseY);
     });
 }

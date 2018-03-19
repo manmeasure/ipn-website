@@ -16,7 +16,10 @@ const ipn = {
     author: "Mees Gelein",
     version: "0.0.1",
     menu: "",
+    /**If there is currently a mouse over icon */
     hasHand: false,
+    /**If we're currently showing content */
+    showingContent: false,
 
     /**
      * Starts loading the main menu data
@@ -70,8 +73,10 @@ const ipn = {
     /**
      * Shows the content that is provided as html string
      * @param {String} html the html string to display in the popover div
+     * @param {String} breadcrumb the html to set as breadcrumb
      */
-    showContent: function(html){
+    showContent: function(html, breadcrumb){
+        this.showingContent = true;
         //First start animating it into view
         $('#content').removeClass('animated slideOutDown').fadeIn(1000, function(){
             $(this).removeClass('animated slideInUp');
@@ -79,6 +84,7 @@ const ipn = {
 
         //Then set content
         $('#content .container').html(html);
+        $('#breadcrumb').html(breadcrumb);
 
         //And reload the sketch
         reload(true);
@@ -88,6 +94,7 @@ const ipn = {
      * Hides the content.
      */
     hideContent: function(html){
+        this.showingContent = false;
         $('#content').removeClass('animated slideInUp').fadeOut(1000, function(){
             $(this).removeClass('animated slideOutDown');
         }).addClass('animated slideOutDown');

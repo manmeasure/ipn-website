@@ -191,8 +191,9 @@ function Node(definition, parent){
                 if(!showSubs) centerStub(this.title);
                 else zoomOut();
             }else{//What to do in case of clicking on a sub
+                var self = this;
                 $.get('data/pages/' + this.page, function(data){
-                    ipn.showContent(data);
+                    ipn.showContent(data, getBreadCrumb(self));
                 });
             }
             return true;
