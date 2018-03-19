@@ -44,6 +44,8 @@ function Node(definition, parent){
     this.tx = this.x;
     /**THis target-y */
     this.ty = this.y;
+    /**Holds the original x-value to go back to after being eased */
+    this.ox = this.x;
 
     /**
      * Starts spawning links
@@ -73,12 +75,46 @@ function Node(definition, parent){
         }
 
         this.visVal -= (this.visVal - this.visibility) * 0.2;
-    }
+        //Ease towards target if that is enabled
+        if(this.easing){
+            this.x -= (this.x - this.tx) * .1;
+            this.y -= (this.y - this.ty) * .1;
+        }
+    },
+
+    /**
+     * Sets easing to true or false and sets the target
+     * @param {Boolean} enabled if we're enabling easing.
+     * @param {Number} tx (optional)the x-coord
+     * @param {Number} ty (optional)the y-coord 
+     */
+    this.setEasing = function(enabled, targetx, targety){
+        this.easing = enabled;
+        if(enabled){
+            this.ox = this.x;
+            this.tx = targetx;
+            this.ty = targety;
+        }
+    },
+
+    /**
+     * Removes the easing from this node
+     */
+    this.removeEasing = function(){
+        //First ease back to the starting point
+        this.setEasing(true, this.ox, this.y);
+        //Then after easing is done, turn off easing again
+        setTimeout(function(){
+            this.easing = false;
+        }, 700)
+    },
 
     /**
      * Draws this node
      */
     this.draw = function(){
+        //Don't draw if we don't need to 
+        if(this.visVal < 0.01) return;
         //Draw shadow
         fill(shadowColor);
         noStroke();
@@ -95,11 +131,15 @@ function Node(definition, parent){
         ellipse(this.x, this.y, this.radius * 2 * this.visVal, this.radius * 2 * this.visVal);
 
         if(this.links && showStubs || !this.links && showSubs){
-            if(this.visVal >= 1){
+            if(this.visVal >= 0.9){//Keep the barrier at 0.9 to prevent easing problems not reaching exact 1 values
                 //Now draw text
                 fill(shadowColor);
                 noStroke();
-                textSize(16 * this.visVal);
+                if(!this.links && showSubs){
+                    textSize(16);
+                }else{
+                    textSize(16 * this.visVal);
+                }
                 var tw = textWidth(this.title);
                 var th = textAscent(this.title)  * -.5;
                 var offX = (this.radius * 2 - tw) / 2;
@@ -109,9 +149,8 @@ function Node(definition, parent){
                 text(this.title, this.x - this.radius + offX + 1, this.y - this.radius + offY + 1);
             }
         }
-
         if(!this.showStubs && !this.links && !showSubs){
-            if(this.visVal >= 1){
+            if(this.visVal >= 0.9){//Keep the barrier at 0.9 to prevent easing problems not reaching exact 1 values
                 var scale = (this.radius / this.img.width) * 0.8;
                 var w =  this.img.width * scale;
                 var h = this.img.height * scale;
@@ -129,11 +168,13 @@ function Node(definition, parent){
     this.testHit = function(x, y){
         //Don't change highlighting if we're not showing the stubs
         if(!this.links && !showSubs) return false;
+        //If we're showing subs don't highlight a stub
+        if(this.links && showSubs) return false;
         var dx = x - this.x;
         var dy = y - this.y;
         var dist = Math.sqrt(dx * dx + dy * dy);
         //Now calculate if we're touching
-        if(dist <= this.radius){
+        if(dist <= this.radius * this.visVal){
             this.highlighted = true;
             return true;
         }else{
@@ -155,8 +196,9 @@ function Node(definition, parent){
         var dy = y - this.y;
         var dist = Math.sqrt(dx * dx + dy * dy);
         //Now calculate if we're touching
-        if(dist <= this.radius){
-            centerStub(this.title);
+        if(dist <= this.radius * this.visVal){
+            if(!showSubs) centerStub(this.title);
+            else zoomOut();
             return true;
         }
         return false;

@@ -45,11 +45,24 @@ function setup(){
     if(holdDefs) loadNodes(holdDefs);
 }
 /**
+ * Reloads the sketch
+ */
+function reload(){
+    loadNodes(holdDefs);
+}
+
+/**
  * Centers on the stub
  * @param {String} name opens the stub of the name
  */
 function centerStub(name){
-    console.log("Trying to open: " + name);
+    //First check if we're already zoomed in
+    if(showSubs){
+        zoomOut();
+        setTimeout(function(){ centerStub(name);}, 700);
+        return;
+    }
+
     //This will hold the node we're trying to center on
     var centerNode;
     //Find the node that we're trying to open
@@ -61,11 +74,17 @@ function centerStub(name){
     });
     //Set showsubs to true, and set their visibility to 1
     showSubs = true;
-    centerNode.visibility = 1;
+    centerNode.visibility = 2;
+    centerNode.setEasing(true, W / 2, 0);
+    var numLinks = centerNode.links.length + 1;
+    var interval = W / numLinks;
+    var wx = interval;
     $.each(nodes, function(index, node){
         $.each(centerNode.links, function(index, link){
             if(node.title == link.title){
-                node.visibility = 1;
+                node.visibility = 2.5;
+                node.setEasing(true, wx, H - 120);
+                wx += interval;
             }
         });
     });
@@ -77,6 +96,7 @@ function centerStub(name){
 function draw(){
     //First cls
     background(255);
+    console.log(showSubs);
     
     //Then repel all nodes from eachother
     $.each(nodes, function(indexA, nodeA){
@@ -84,7 +104,7 @@ function draw(){
             //Same node, do nothing
             if(indexA == indexB) return;
 
-            //Else, repell from eachother
+            //Else, repel from eachother
             if(!showSubs) keepApart(nodeA, nodeB);
         })
     });
@@ -113,6 +133,8 @@ function draw(){
  * @param {Array} defNodes 
  */
 function loadNodes(defNodes){
+    nodes = [];
+    links = []; 
     //If the skecth is not ready yet, hold the data untill it is
     if(!sketchReady) {
         holdDefs = defNodes;
@@ -164,4 +186,6 @@ function mousePressed(){
 function zoomOut(){
     showStubs = true;
     showSubs = false;
+    //This is a forced solution and not as elegant as I would like, but ah well
+    reload();
 }
