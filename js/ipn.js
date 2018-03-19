@@ -120,6 +120,13 @@ const ipn = {
         return href + "?stub=" + title.replace(/ /g, '_');
     },
 
+    loadHome: function(){
+        var href = window.location.href;
+        if(href.indexOf('?') > -1) href = href.split('?')[0];
+        history.pushState(null, null, href);
+        reload();
+    },
+
     /**
      * Hides the content.
      */
