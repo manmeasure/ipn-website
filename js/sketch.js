@@ -47,10 +47,11 @@ function setup(){
 /**
  * Reloads the sketch
  */
-function reload(){
+function reload(noHide){
     loadNodes(holdDefs);
     showSubs = false;
     showStubs = true;
+    if(!noHide) ipn.hideContent();
 }
 
 /**

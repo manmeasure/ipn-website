@@ -79,6 +79,9 @@ const ipn = {
 
         //Then set content
         $('#content .container').html(html);
+
+        //And reload the sketch
+        reload(true);
     },
 
     /**
