@@ -97,6 +97,11 @@ function centerStub(name){
             centerNode = node;
         }
     });
+    //If we haven't found the node, show error
+    if(!centerNode){
+        console.error("Not found node with name: " + name);
+        return;
+    }
     //Set showsubs to true, and set their visibility to 1
     showSubs = true;
     centerNode.visibility = 2;
