@@ -56,10 +56,44 @@ ul{
 /**
 BOOTSTRAP OVERRIDES
 **/
+.img-rounded{
+    border-radius: 1em;
+}
 
 /**
 CUSTOM CLASSES
 **/
+.portrait .name{
+    margin-top: 1em;
+}
+
+.arrows{
+    margin-top: 2em;
+    margin-bottom: 2em;
+    color: #788;
+    cursor: pointer;
+}
+
+.arrows:hover{
+    color: #566;
+}
+
+.arrows.disabled, .arrows.disabled:hover{
+    color: #cdd;
+    cursor: default;
+}
+
+.portrait{
+    border-radius: 2em;
+    background-color: #a6d5e6;
+    margin-top: 0em;
+}
+
+.portrait:nth-of-type(even){
+    margin-top: 1em;
+    background-color: #9eb8c2;
+}
+
 .timeline-item{
     padding: 1em;
     border-radius: 2em;
