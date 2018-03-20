@@ -112,7 +112,7 @@ CUSTOM CLASSES
     border-radius: 2em;
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
     background-color: #a6d5e6;
-    margin-bottom:1em;
+    margin-bottom:2em;
 }
 
 .timeline-author{
@@ -121,8 +121,8 @@ CUSTOM CLASSES
 
 .timeline-item:nth-child(even){
     background-color: #9eb8c2;
-    margin-left: 2em;
-    margin-right: -2em;
+    margin-left: 3em;
+    margin-right: -3em;
 }
 
 .timeline-date{
