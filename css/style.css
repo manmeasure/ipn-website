@@ -161,4 +161,7 @@ CUSTOM ID's
 
 #overview{
     text-align: center;
+    background-image: url(../data/img/line.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
