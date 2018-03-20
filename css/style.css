@@ -63,6 +63,10 @@ BOOTSTRAP OVERRIDES
 /**
 CUSTOM CLASSES
 **/
+.match{
+    background: #7ca9ba;
+}
+
 .university img{
     display: block;
     box-shadow: 0px 0px 0px white;
@@ -132,6 +136,10 @@ CUSTOM CLASSES
 /**
 CUSTOM ID's
 **/
+#bib-list{
+    list-style-type: disc;
+}
+
 #defaultCanvas0{
     width: 100vw;
 }

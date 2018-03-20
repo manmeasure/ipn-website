@@ -153,6 +153,36 @@ const ipn = {
         });
         //If it is found, return a replaced version
         if(found) return found.replace('#', '');
+    },
+
+    /**
+     * Search through the bibliography and update it with the query with what is in 
+     * the search field
+     */
+    bibSearch: function(){
+        var query = $('#bib-search').val().toLowerCase();
+        var count = 0;
+        $('#bib-list li').each(function(index, item){
+            //First set html back to basic text
+            $(this).html($(this).text());
+            if(query.length < 1){
+                $(this).show();
+                count ++;
+                return;
+            }
+            //Test every item on the list for the query
+            var index = $(this).html().toLowerCase().indexOf(query);
+            if(index == -1){
+                $(this).hide();
+            }else{
+                var html = $(this).html();
+                var parts = [html.substring(0, index), html.substring(index, index + query.length), html.substring(index + query.length)];
+                $(this).html(parts[0] + "<span class='match'>" + parts[1] + "</span>" + parts[2]);
+                $(this).show();
+                count ++;
+            }
+        });
+        $('#resultCount').html('' + count);
     }
 }
 
