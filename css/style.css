@@ -60,6 +60,19 @@ BOOTSTRAP OVERRIDES
     border-radius: 1em;
 }
 
+.badge{
+    font-size: 1em;
+}
+
+.badge-primary{
+    background-color: #c2e3f0;
+    color: #244;
+}
+
+.badge-secondary{
+    background-color: #3d545e;
+}
+
 /**
 CUSTOM CLASSES
 **/
@@ -160,4 +173,9 @@ CUSTOM ID's
     padding-top: 1em;
     padding-left: 8em;
     padding-right: 8em;
+}
+
+#charity{
+    list-style-type: none;
+    margin-left: 0em;
 }
