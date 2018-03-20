@@ -63,6 +63,12 @@ BOOTSTRAP OVERRIDES
 /**
 CUSTOM CLASSES
 **/
+.university img{
+    display: block;
+    box-shadow: 0px 0px 0px white;
+    width: 100%;
+}
+
 .portrait .name{
     margin-top: 1em;
 }
@@ -84,6 +90,7 @@ CUSTOM CLASSES
 }
 
 .portrait{
+    border: 3px solid white;
     border-radius: 2em;
     background-color: #a6d5e6;
     margin-top: 0em;
@@ -92,6 +99,9 @@ CUSTOM CLASSES
 .portrait:nth-of-type(even){
     margin-top: 1em;
     background-color: #9eb8c2;
+    border-bottom: 2em solid white;
+    border-bottom-left-radius: 4em;
+    border-bottom-right-radius: 4em;
 }
 
 .timeline-item{
